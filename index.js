@@ -15,12 +15,23 @@ const evaluateResponse = async (city) => {
 }
 
 const weatherInfoView = city => `
-// Missing implementation
+  <div>
+    <h1>${city.name}</h1>
+    <p>${new Date(city.dt * 1000)}</p>
+    <p>${city.main.temp.toFixed(1)}°C</p>
+    <p>feels like ${city.main.feels_like.toFixed(1)}°C. ${city.weather[0].description}.</p>
+    <p>humidity: ${city.main.humidity}%</p>
+    <p>wind speed: ${city.wind.speed.toFixed(1)} m/S</p>
+    <hr>
+    <p>sunrise: ${new Date(city.sys.sunrise * 1000).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}</p>
+    <p>sunset: ${new Date(city.sys.sunset * 1000).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}</p>
+  </div>
 `
 
 
 const renderWeatherDetails = async (city) => {
   const cityData = await evaluateResponse(city);
+  console.log(cityData);
   const container = document.querySelector('.info-container');
   container.innerHTML = weatherInfoView(cityData);
 }
