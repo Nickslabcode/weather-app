@@ -16,26 +16,45 @@ const evaluateResponse = async city => {
 };
 
 const weatherInfoView = async city => `
-  <div>
-    <h1>${city.name}</h1>
-    <p>${new Date(city.dt * 1000)}</p>
-    <p>${city.main.temp.toFixed(1)}°C</p>
-    <p>feels like ${city.main.feels_like.toFixed(1)}°C.</p>
-    <p>${city.weather[0].description}.</p>
-    <hr>
-    <p>humidity: ${city.main.humidity}%</p>
-    <img src="${`https://openweathermap.org/img/wn/${city.weather[0].icon}@2x.png`}" />
-    <p>wind speed: ${city.wind.speed.toFixed(1)} m/S</p>
-    <hr>
-    <p>sunrise: ${new Date(city.sys.sunrise * 1000).toLocaleTimeString([], {
-      hour: '2-digit',
-      minute: '2-digit',
-    })}</p>
-    <p>sunset: ${new Date(city.sys.sunset * 1000).toLocaleTimeString([], {
-      hour: '2-digit',
-      minute: '2-digit',
-    })}</p>
-  </div>
+  <header>
+    <h1 class="city-name">${city.name}</h1>
+    <span class="date">${new Date(city.dt * 1000).toDateString()}, ${new Date(
+  city.dt * 1000
+).toLocaleTimeString()} </span>
+  </header>
+  <main>
+    <div class="main-info">
+      <img src="${`https://openweathermap.org/img/wn/${city.weather[0].icon}@2x.png`}" />
+      <p>${city.main.temp.toFixed(1)}°C<br><span>${
+  city.weather[0].description
+}</span></p>
+    </div>
+    <div class="additional-info">
+      <div>
+        <h4>humidity</h4>
+        <p>${city.main.humidity}<span>%</span></p>
+      </div>
+      <div>
+        <h4>wind speed</h4>
+        <p>${city.wind.speed.toFixed(1)}<span>m/S</span></p>
+      </div>
+      <div>
+        <h4>sunrise</h4>
+        <p>${new Date(city.sys.sunrise * 1000).toLocaleTimeString([], {
+          hour: '2-digit',
+          minute: '2-digit',
+        })}</p>
+      </div>
+      <div>
+        <h4>sunset</h4>
+        <p>${new Date(city.sys.sunset * 1000).toLocaleTimeString([], {
+          hour: '2-digit',
+          minute: '2-digit',
+        })}</p>
+      </div>
+    </div>
+  </main>
+
 `;
 
 const errorView = error => `
